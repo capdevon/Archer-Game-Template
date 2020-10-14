@@ -14,7 +14,7 @@ The demo contains:
 * Sounds
 * Particles
 * Postprocessing
-* ... many functions thath can be very usefull
+* ... many useful functions!
 
 Resource Used:
 
