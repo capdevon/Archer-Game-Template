@@ -51,246 +51,244 @@ import mygame.AnimDefs;
  */
 public class Test_Swimming extends BaseGameApplication {
 
-	/**
-	 * Start the jMonkeyEngine application
-	 * 
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		Test_Swimming app = new Test_Swimming();
+    /**
+     * Start the jMonkeyEngine application
+     * 
+     * @param args
+     */
+    public static void main(String[] args) {
+        Test_Swimming app = new Test_Swimming();
 
-		AppSettings settings = new AppSettings(true);
-		settings.setTitle(Test_Swimming.class.getSimpleName());
-		settings.setUseJoysticks(true);
-		settings.setResolution(800, 600);
-		settings.setFrequency(60);
-		settings.setFrameRate(30);
-		settings.setSamples(4);
-		settings.setBitsPerPixel(32);
+        AppSettings settings = new AppSettings(true);
+        settings.setTitle(Test_Swimming.class.getSimpleName());
+        settings.setUseJoysticks(true);
+        settings.setResolution(800, 600);
+        settings.setFrequency(60);
+        settings.setFrameRate(30);
+        settings.setSamples(4);
+        settings.setBitsPerPixel(32);
 
-		app.setSettings(settings);
-		app.setShowSettings(false);
-		app.setPauseOnLostFocus(false);
-		app.start();
-	}
+        app.setSettings(settings);
+        app.setShowSettings(false);
+        app.setPauseOnLostFocus(false);
+        app.start();
+    }
 
-	private Node player;
+    private Node player;
 
-	private interface TagName {
-		final String SWIMMING_POOL = "SWIMMING_POOL";
-	}
+    private interface TagName {
+        final String SWIMMING_POOL = "SWIMMING_POOL";
+    }
 
-	@Override
-	public void simpleInitApp() {
-		// disable the default 1st-person flyCam!
-		stateManager.detach(stateManager.getState(FlyCamAppState.class));
-		flyCam.setEnabled(false);
+    @Override
+    public void simpleInitApp() {
+        // disable the default 1st-person flyCam!
+        stateManager.detach(stateManager.getState(FlyCamAppState.class));
+        flyCam.setEnabled(false);
 
-		JMonkey3.initEngine(this);
+        JMonkey3.initEngine(this);
 
-		initPhysics(false);
-		setupPlayer();
-		setupScene();
-		setupLights();
-		setupFilters();
+        initPhysics(false);
+        setupPlayer();
+        setupScene();
+        setupLights();
+        setupFilters();
 
-		/* nature sound - keeps playing in a loop. */
-		AudioNode audio_nature = getAudioEnv("Sound/Environment/Nature.ogg", true, false, 4);
+        /* nature sound - keeps playing in a loop. */
+        AudioNode audio_nature = getAudioEnv("Sound/Environment/Nature.ogg", true, false, 4);
 
-		GInputAppState ginput = new GInputAppState();
-		ginput.addActionListener(player.getControl(PlayerControl.class));
-		stateManager.attach(ginput);
-	}
+        GInputAppState ginput = new GInputAppState();
+        ginput.addActionListener(player.getControl(PlayerControl.class));
+        stateManager.attach(ginput);
+    }
 
-	@Override
-	public void setupScene() {
-		// To change body of generated methods, choose Tools | Templates.
-		Node level = (Node) assetManager.loadModel("Scenes/swimming-pool.j3o");
-		rootNode.attachChild(level);
+    @Override
+    public void setupScene() {
+        // To change body of generated methods, choose Tools | Templates.
+        Node level = (Node) assetManager.loadModel("Scenes/swimming-pool.j3o");
+        rootNode.attachChild(level);
 
-		Node scene = (Node) level.getChild("Scene");
-		for (Spatial sp : scene.getChildren()) {
+        Node scene = (Node) level.getChild("Scene");
+        for (Spatial sp: scene.getChildren()) {
 
-			System.out.println("--ChildName: " + sp);
-			Physics.addMeshCollider(sp, 0f, false);
+            System.out.println("--ChildName: " + sp);
+            Physics.addMeshCollider(sp, 0 f, false);
 
-			if (sp.getName().equals("Pool")) {
+            if (sp.getName().equals("Pool")) {
 
-				WaterFactory factory = new WaterFactory(assetManager, viewPort);
-				Geometry water = factory.build(level, 9, 10);
-				water.setLocalTranslation(-5f, -0.65f, 5f);
-				rootNode.attachChild(water);
+                WaterFactory factory = new WaterFactory(assetManager, viewPort);
+                Geometry water = factory.build(level, 9, 10);
+                water.setLocalTranslation(-5 f, -0.65 f, 5 f);
+                rootNode.attachChild(water);
 
-				BoundingBox bbox = (BoundingBox) sp.getWorldBound();
-				System.out.println(bbox);
-				System.out.println(sp.getLocalTranslation());
-				EnterableTrigger trigger = new BoxTrigger(assetManager, bbox.getExtent(null), true);
-				trigger.setTagName(TagName.SWIMMING_POOL);
-				trigger.setTarget(player.getChild("player-head"));
-				sp.addControl(trigger);
-			}
-		}
+                BoundingBox bbox = (BoundingBox) sp.getWorldBound();
+                EnterableTrigger trigger = new BoxTrigger(assetManager, bbox.getExtent(null), true);
+                trigger.setTagName(TagName.SWIMMING_POOL);
+                trigger.setTarget(player.getChild("player-head"));
+                sp.addControl(trigger);
+            }
+        }
 
-		level.attachChild(SkyFactory.createSky(assetManager, "Scenes/Beach/FullskiesSunset0068.dds",
-				SkyFactory.EnvMapType.CubeMap));
+        level.attachChild(SkyFactory.createSky(assetManager, "Scenes/Beach/FullskiesSunset0068.dds",
+            SkyFactory.EnvMapType.CubeMap));
 
-//        scene.attachChild(player);
-	}
+        //        scene.attachChild(player);
+    }
 
-	private void setupPlayer() {
-		player = (Node) assetManager.loadModel(AnimDefs.MODEL);
-		player.setName("Player");
-		rootNode.attachChild(player);
+    private void setupPlayer() {
+        player = (Node) assetManager.loadModel(AnimDefs.MODEL);
+        player.setName("Player");
+        rootNode.attachChild(player);
 
-		BetterCharacterControl bcc = new BetterCharacterControl(.5f, 2f, 50f);
-		player.addControl(bcc);
-		PhysicsSpace.getPhysicsSpace().add(bcc);
+        BetterCharacterControl bcc = new BetterCharacterControl(.5 f, 2 f, 50 f);
+        player.addControl(bcc);
+        PhysicsSpace.getPhysicsSpace().add(bcc);
 
-		bcc.setGravity(new Vector3f(0, -9.81f, 0).multLocal(2));
-		bcc.setPhysicsDamping(0.8f);
+        bcc.setGravity(new Vector3f(0, -9.81 f, 0).multLocal(2));
+        bcc.setPhysicsDamping(0.8 f);
 
-		// Setup Third Person Camera
-		CameraHandler.bindChaseCamera(cam, player, inputManager, settings.useJoysticks());
+        // Setup Third Person Camera
+        CameraHandler.bindChaseCamera(cam, player, inputManager, settings.useJoysticks());
 
-		player.addControl(new Animator());
-		player.addControl(new PlayerControl(cam));
+        player.addControl(new Animator());
+        player.addControl(new PlayerControl(cam));
 
-		Node head = new Node("player-head");
-		player.attachChild(head);
-		head.setLocalTranslation(new Vector3f(0, 1.8f, 0));
-	}
+        Node head = new Node("player-head");
+        player.attachChild(head);
+        head.setLocalTranslation(new Vector3f(0, 1.8 f, 0));
+    }
 
-	private class PlayerControl extends AdapterControl implements ActionListener, TriggerListener {
+    private class PlayerControl extends AdapterControl implements ActionListener, TriggerListener {
 
-		private Camera camera;
-		private Animator animator;
-		private BetterCharacterControl bcc;
+        private Camera camera;
+        private Animator animator;
+        private BetterCharacterControl bcc;
 
-		private final Transform transform = new Transform();
-		private final Quaternion dr = new Quaternion();
-		private final Vector3f walkDirection = new Vector3f(0, 0, 0);
-		private final Vector3f viewDirection = new Vector3f(0, 0, 1);
-		private final Vector3f camDir = new Vector3f();
-		private final Vector3f camLeft = new Vector3f();
-		private final Vector2f velocity = new Vector2f();
+        private final Transform transform = new Transform();
+        private final Quaternion dr = new Quaternion();
+        private final Vector3f walkDirection = new Vector3f(0, 0, 0);
+        private final Vector3f viewDirection = new Vector3f(0, 0, 1);
+        private final Vector3f camDir = new Vector3f();
+        private final Vector3f camLeft = new Vector3f();
+        private final Vector2f velocity = new Vector2f();
 
-		private float m_SwimSpeed = 1.5f;
-		private float m_MoveSpeed = 4.5f;
-		private float m_TurnSpeed = 10f;
+        private float m_SwimSpeed = 1.5 f;
+        private float m_MoveSpeed = 4.5 f;
+        private float m_TurnSpeed = 10 f;
 
-		private boolean _MoveForward, _MoveBackward, _MoveLeft, _MoveRight;
-		private boolean isSwimming;
+        private boolean _MoveForward, _MoveBackward, _MoveLeft, _MoveRight;
+        private boolean isSwimming;
 
-		public PlayerControl(Camera camera) {
-			this.camera = camera;
-		}
+        public PlayerControl(Camera camera) {
+            this.camera = camera;
+        }
 
-		@Override
-		public void setSpatial(Spatial sp) {
-			super.setSpatial(sp);
-			if (spatial != null) {
-				this.bcc = getComponent(BetterCharacterControl.class);
-				this.animator = getComponent(Animator.class);
+        @Override
+        public void setSpatial(Spatial sp) {
+            super.setSpatial(sp);
+            if (spatial != null) {
+                this.bcc = getComponent(BetterCharacterControl.class);
+                this.animator = getComponent(Animator.class);
 
-				// Register this as TriggerListener
-				TriggerManager.getInstance().addListener(this);
-			}
-		}
+                // Register this as TriggerListener
+                TriggerManager.getInstance().addListener(this);
+            }
+        }
 
-		@Override
-		protected void controlUpdate(float tpf) {
-			camera.getDirection(camDir).setY(0);
-			camera.getLeft(camLeft).setY(0);
+        @Override
+        protected void controlUpdate(float tpf) {
+            camera.getDirection(camDir).setY(0);
+            camera.getLeft(camLeft).setY(0);
 
-			walkDirection.set(0, 0, 0);
+            walkDirection.set(0, 0, 0);
 
-			if (_MoveForward) {
-				walkDirection.addLocal(camDir);
-			} else if (_MoveBackward) {
-				walkDirection.addLocal(camDir.negateLocal());
-			}
+            if (_MoveForward) {
+                walkDirection.addLocal(camDir);
+            } else if (_MoveBackward) {
+                walkDirection.addLocal(camDir.negateLocal());
+            }
 
-			if (_MoveLeft) {
-				walkDirection.addLocal(camLeft);
-			} else if (_MoveRight) {
-				walkDirection.addLocal(camLeft.negateLocal());
-			}
+            if (_MoveLeft) {
+                walkDirection.addLocal(camLeft);
+            } else if (_MoveRight) {
+                walkDirection.addLocal(camLeft.negateLocal());
+            }
 
-			walkDirection.normalizeLocal();
+            walkDirection.normalizeLocal();
 
-			if (walkDirection.lengthSquared() > 0) {
-				float angle = FastMath.atan2(walkDirection.x, walkDirection.z);
-				dr.fromAngleNormalAxis(angle, Vector3f.UNIT_Y);
-				spatial.getWorldRotation().slerp(dr, m_TurnSpeed * tpf);
-				spatial.getWorldRotation().mult(Vector3f.UNIT_Z, viewDirection);
-				bcc.setViewDirection(viewDirection);
-			}
+            if (walkDirection.lengthSquared() > 0) {
+                float angle = FastMath.atan2(walkDirection.x, walkDirection.z);
+                dr.fromAngleNormalAxis(angle, Vector3f.UNIT_Y);
+                spatial.getWorldRotation().slerp(dr, m_TurnSpeed * tpf);
+                spatial.getWorldRotation().mult(Vector3f.UNIT_Z, viewDirection);
+                bcc.setViewDirection(viewDirection);
+            }
 
-			float xSpeed = isSwimming ? m_SwimSpeed : m_MoveSpeed;
-			bcc.setWalkDirection(walkDirection.multLocal(xSpeed));
+            float xSpeed = isSwimming ? m_SwimSpeed : m_MoveSpeed;
+            bcc.setWalkDirection(walkDirection.multLocal(xSpeed));
 
-			velocity.set(bcc.getVelocity().x, bcc.getVelocity().z);
-			boolean isMoving = (velocity.length() / xSpeed) > .2f;
+            velocity.set(bcc.getVelocity().x, bcc.getVelocity().z);
+            boolean isMoving = (velocity.length() / xSpeed) > .2 f;
 
-			if (isMoving) {
-				animator.setAnimation(isSwimming ? AnimDefs.Water_Moving : AnimDefs.Running);
-			} else {
-				animator.setAnimation(isSwimming ? AnimDefs.Water_Idle : AnimDefs.Idle);
-			}
-		}
+            if (isMoving) {
+                animator.setAnimation(isSwimming ? AnimDefs.Water_Moving : AnimDefs.Running);
+            } else {
+                animator.setAnimation(isSwimming ? AnimDefs.Water_Idle : AnimDefs.Idle);
+            }
+        }
 
-		@Override
-		public void onAction(String action, boolean keyPressed, float tpf) {
-			// To change body of generated methods, choose Tools | Templates.
-			if (action.equals(KeyMapping.MOVE_LEFT)) {
-				_MoveLeft = keyPressed;
-			} else if (action.equals(KeyMapping.MOVE_RIGHT)) {
-				_MoveRight = keyPressed;
-			} else if (action.equals(KeyMapping.MOVE_FORWARD)) {
-				_MoveForward = keyPressed;
-			} else if (action.equals(KeyMapping.MOVE_BACKWARD)) {
-				_MoveBackward = keyPressed;
-			}
-		}
+        @Override
+        public void onAction(String action, boolean keyPressed, float tpf) {
+            // To change body of generated methods, choose Tools | Templates.
+            if (action.equals(KeyMapping.MOVE_LEFT)) {
+                _MoveLeft = keyPressed;
+            } else if (action.equals(KeyMapping.MOVE_RIGHT)) {
+                _MoveRight = keyPressed;
+            } else if (action.equals(KeyMapping.MOVE_FORWARD)) {
+                _MoveForward = keyPressed;
+            } else if (action.equals(KeyMapping.MOVE_BACKWARD)) {
+                _MoveBackward = keyPressed;
+            }
+        }
 
-		public Transform getTransform() {
-			return transform.set(spatial.getWorldTransform());
-		}
+        public Transform getTransform() {
+            return transform.set(spatial.getWorldTransform());
+        }
 
-		public Vector3f getLocation() {
-			return getTransform().getTranslation();
-		}
+        public Vector3f getLocation() {
+            return getTransform().getTranslation();
+        }
 
-		public Quaternion getRotation() {
-			return getTransform().getRotation();
-		}
+        public Quaternion getRotation() {
+            return getTransform().getRotation();
+        }
 
-		public void setWalkDirection(Vector3f vec) {
-			walkDirection.set(vec);
-			bcc.setWalkDirection(walkDirection);
-		}
+        public void setWalkDirection(Vector3f vec) {
+            walkDirection.set(vec);
+            bcc.setWalkDirection(walkDirection);
+        }
 
-		public void setViewDirection(Vector3f vec) {
-			viewDirection.set(vec);
-			bcc.setViewDirection(viewDirection);
-		}
+        public void setViewDirection(Vector3f vec) {
+            viewDirection.set(vec);
+            bcc.setViewDirection(viewDirection);
+        }
 
-		@Override
-		public void onTriggerEnter(EnterableTrigger trigger) {
-			System.out.println("onCollisionEnter: " + trigger.getTagName());
-			if (trigger.getTagName() == TagName.SWIMMING_POOL) {
-				isSwimming = true;
-			}
-		}
+        @Override
+        public void onTriggerEnter(EnterableTrigger trigger) {
+            System.out.println("onCollisionEnter: " + trigger.getTagName());
+            if (trigger.getTagName() == TagName.SWIMMING_POOL) {
+                isSwimming = true;
+            }
+        }
 
-		@Override
-		public void onTriggerExit(EnterableTrigger trigger) {
-			System.out.println("onCollisionExit: " + trigger.getTagName());
-			if (trigger.getTagName() == TagName.SWIMMING_POOL) {
-				isSwimming = false;
-			}
-		}
+        @Override
+        public void onTriggerExit(EnterableTrigger trigger) {
+            System.out.println("onCollisionExit: " + trigger.getTagName());
+            if (trigger.getTagName() == TagName.SWIMMING_POOL) {
+                isSwimming = false;
+            }
+        }
 
-	}
+    }
 
 }
