@@ -28,13 +28,13 @@ Resource Used:
     - [mixamo](https://www.mixamo.com/#/)
 
 # Swimmming pool
-![Screenshot](media/swim/image-1.jpg)
+![Screenshot](media/swim/image-1.png)
 ------
-![Screenshot](media/swim/image-2.jpg)
+![Screenshot](media/swim/image-2.png)
 ------
-![Screenshot](media/swim/image-3.jpg)
+![Screenshot](media/swim/image-3.png)
 ------
-![Screenshot](media/swim/image-4.jpg)
+![Screenshot](media/swim/image-4.png)
 
 # Archer
 ![Screenshot](media/image2.jpg)
