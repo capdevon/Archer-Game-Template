@@ -51,7 +51,7 @@ public class Main extends BaseGameApplication {
         
         SoundManager.init(assetManager);
         
-        initPhysics();
+        initPhysics(false);
         setupScene();
         setupSkyBox();
         setupLights();
