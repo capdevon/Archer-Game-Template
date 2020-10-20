@@ -89,11 +89,11 @@ public abstract class SimpleAppState extends AbstractAppState {
     protected void simpleInit() {}
     
     protected void registerInput() {}
-   
-    /**
-     * @param childName
-     * @return 
-     */
+
+	/**
+	 * @param childName
+	 * @return
+	 */
 	public Spatial find(final String childName) {
 		Spatial child = rootNode.getChild(childName);
 		if (child == null) {
@@ -154,6 +154,7 @@ public abstract class SimpleAppState extends AbstractAppState {
     }
     
     /**
+     * By default the parent of the new object is null
      * @param assetName
      * @param position
      * @param rotation
