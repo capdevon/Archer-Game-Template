@@ -16,7 +16,7 @@ The demo contains:
 * Postprocessing
 * ... many many useful functions! Stay tuned for the next addon.
 
-# New addon: Swim mechanic
+# New add-on: Swimming System
 * add Trigger System based on Unity Collider
 
 Resource Used:
@@ -27,7 +27,7 @@ Resource Used:
 - Assets
     - [mixamo](https://www.mixamo.com/#/)
 
-# Swimmming pool
+# Swimmming System
 ![Screenshot](media/swim/image-1.png)
 ------
 ![Screenshot](media/swim/image-2.png)
