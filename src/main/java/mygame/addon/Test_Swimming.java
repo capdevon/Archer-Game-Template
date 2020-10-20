@@ -112,13 +112,13 @@ public class Test_Swimming extends BaseGameApplication {
         for (Spatial sp: scene.getChildren()) {
 
             System.out.println("--ChildName: " + sp);
-            Physics.addMeshCollider(sp, 0 f, false);
+            Physics.addMeshCollider(sp, 0f, false);
 
             if (sp.getName().equals("Pool")) {
 
                 WaterFactory factory = new WaterFactory(assetManager, viewPort);
                 Geometry water = factory.build(level, 9, 10);
-                water.setLocalTranslation(-5 f, -0.65 f, 5 f);
+                water.setLocalTranslation(-5f, -0.65f, 5f);
                 rootNode.attachChild(water);
 
                 BoundingBox bbox = (BoundingBox) sp.getWorldBound();
@@ -140,12 +140,12 @@ public class Test_Swimming extends BaseGameApplication {
         player.setName("Player");
         rootNode.attachChild(player);
 
-        BetterCharacterControl bcc = new BetterCharacterControl(.5 f, 2 f, 50 f);
+        BetterCharacterControl bcc = new BetterCharacterControl(.5f, 2f, 50f);
         player.addControl(bcc);
         PhysicsSpace.getPhysicsSpace().add(bcc);
 
-        bcc.setGravity(new Vector3f(0, -9.81 f, 0).multLocal(2));
-        bcc.setPhysicsDamping(0.8 f);
+        bcc.setGravity(new Vector3f(0, -9.81f, 0).multLocal(2));
+        bcc.setPhysicsDamping(0.8f);
 
         // Setup Third Person Camera
         CameraHandler.bindChaseCamera(cam, player, inputManager, settings.useJoysticks());
@@ -155,7 +155,7 @@ public class Test_Swimming extends BaseGameApplication {
 
         Node head = new Node("player-head");
         player.attachChild(head);
-        head.setLocalTranslation(new Vector3f(0, 1.8 f, 0));
+        head.setLocalTranslation(new Vector3f(0, 1.8f, 0));
     }
 
     private class PlayerControl extends AdapterControl implements ActionListener, TriggerListener {
@@ -172,9 +172,9 @@ public class Test_Swimming extends BaseGameApplication {
         private final Vector3f camLeft = new Vector3f();
         private final Vector2f velocity = new Vector2f();
 
-        private float m_SwimSpeed = 1.5 f;
-        private float m_MoveSpeed = 4.5 f;
-        private float m_TurnSpeed = 10 f;
+        private float m_SwimSpeed = 1.5f;
+        private float m_MoveSpeed = 4.5f;
+        private float m_TurnSpeed = 10f;
 
         private boolean _MoveForward, _MoveBackward, _MoveLeft, _MoveRight;
         private boolean isSwimming;
