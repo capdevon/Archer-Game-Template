@@ -128,13 +128,13 @@ public class PlayerControl extends AdapterControl implements AnimEventListener {
             boolean isMoving = (velocity.length() / xSpeed) > .2f;
 
             if (isMoving) {
-                setAnimTrigger(isRunning ? IAnimation.Running_2 : IAnimation.Running);
+                setAnimTrigger(isRunning ? AnimDefs.Running_2 : AnimDefs.Running);
                 footsteps.setVolume(isRunning ? 2f : .4f);
                 footsteps.setPitch(isRunning ? 1f : .85f);
                 footsteps.play();
 
             } else {
-                setAnimTrigger(IAnimation.Idle);
+                setAnimTrigger(AnimDefs.Idle);
                 footsteps.stop();
             }
         }
@@ -149,7 +149,6 @@ public class PlayerControl extends AdapterControl implements AnimEventListener {
         fov = (isAiming) ? (fov + m) : (fov - m);
         fov = FastMath.clamp(fov, 0, 1);
         setFOV(FastMath.interpolateLinear(fov, defaultFOV, aimZoomRatio * defaultFOV));
-        // System.out.println("\t upateWeaponAiming: " + fov);
     }
 
     private void setFOV(float fov) {
@@ -161,7 +160,7 @@ public class PlayerControl extends AdapterControl implements AnimEventListener {
         this.isAiming = isAiming;
         // collCamera.setZooming(isAiming);
         weapon.crosshair.setEnabled(isAiming);
-        setAnimTrigger(IAnimation.Draw_Arrow);
+        setAnimTrigger(AnimDefs.Draw_Arrow);
     }
 
     public void changeAmmo() {
@@ -176,7 +175,7 @@ public class PlayerControl extends AdapterControl implements AnimEventListener {
         if (isAiming && canShooting) {
 
             shoot.playInstance();
-            setAnimTrigger(IAnimation.Aim_Recoil);
+            setAnimTrigger(AnimDefs.Aim_Recoil);
 
             // Aim the ray from character location in camera direction.
             if (Physics.doRaycast(aimNode.getWorldTranslation(), camera.getDirection(), shootHit, weapon.distance)) {
@@ -236,7 +235,7 @@ public class PlayerControl extends AdapterControl implements AnimEventListener {
     }
 
     private void setAnimTrigger(Animation3 newAnim) {
-        if (checkTransition(newAnim, IAnimation.Running, IAnimation.Running_2)) {
+        if (checkTransition(newAnim, AnimDefs.Running, AnimDefs.Running_2)) {
             animator.crossFade(newAnim);
         } else {
             animator.setAnimation(newAnim);
@@ -251,21 +250,21 @@ public class PlayerControl extends AdapterControl implements AnimEventListener {
     @Override
     public void onAnimCycleDone(AnimControl control, AnimChannel channel, String animName) {
         //To change body of generated methods, choose Tools | Templates.
-        if (animName.equals(IAnimation.Aim_Recoil.name)) {
-            setAnimTrigger(IAnimation.Draw_Arrow);
+        if (animName.equals(AnimDefs.Aim_Recoil.name)) {
+            setAnimTrigger(AnimDefs.Draw_Arrow);
 
-        } else if (animName.equals(IAnimation.Draw_Arrow.name)) {
-            setAnimTrigger(IAnimation.Aim_Overdraw);
+        } else if (animName.equals(AnimDefs.Draw_Arrow.name)) {
+            setAnimTrigger(AnimDefs.Aim_Overdraw);
         }
     }
 
     @Override
     public void onAnimChange(AnimControl control, AnimChannel channel, String animName) {
         // To change body of generated methods, choose Tools | Templates.
-        if (animName.equals(IAnimation.Aim_Recoil.name) || animName.equals(IAnimation.Draw_Arrow.name)) {
+        if (animName.equals(AnimDefs.Aim_Recoil.name) || animName.equals(AnimDefs.Draw_Arrow.name)) {
             setWeaponCharging();
 
-        } else if (animName.equals(IAnimation.Aim_Overdraw.name)) {
+        } else if (animName.equals(AnimDefs.Aim_Overdraw.name)) {
             setWeaponReady();
         }
     }
