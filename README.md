@@ -23,3 +23,13 @@ Resource Used:
     
 - Assets
     - [mixamo](https://www.mixamo.com/#/)
+
+![Screenshot](media/image2.jpg)
+
+------
+
+![Screenshot](media/image3.jpg)
+
+------
+
+![Screenshot](media/image4.jpg)
