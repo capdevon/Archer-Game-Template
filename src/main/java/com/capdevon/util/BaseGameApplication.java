@@ -32,11 +32,11 @@ public abstract class BaseGameApplication extends SimpleApplication {
     
     
     /** Initialize the physics simulation */
-    public void initPhysics() {
+    public void initPhysics(boolean debug) {
         physics = new BulletAppState();
         physics.setThreadingType(BulletAppState.ThreadingType.SEQUENTIAL);
         stateManager.attach(physics);
-        physics.setDebugEnabled(false);
+        physics.setDebugEnabled(debug);
     }
     
     public void setupScene() {
