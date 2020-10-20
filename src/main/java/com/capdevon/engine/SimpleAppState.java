@@ -5,6 +5,9 @@
  */
 package com.capdevon.engine;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.jme3.app.Application;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AbstractAppState;
@@ -20,11 +23,9 @@ import com.jme3.renderer.Camera;
 import com.jme3.renderer.RenderManager;
 import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Node;
-import com.jme3.scene.SceneGraphVisitorAdapter;
+import com.jme3.scene.SceneGraphVisitor;
 import com.jme3.scene.Spatial;
 import com.jme3.system.AppSettings;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -93,32 +94,24 @@ public abstract class SimpleAppState extends AbstractAppState {
      * @param childName
      * @return 
      */
-    public Node find(final String childName) {
-        final List<Node> lst = new ArrayList<>();
-        rootNode.breadthFirstTraversal(new SceneGraphVisitorAdapter() {
-            @Override
-            public void visit(Node node) {
-                if (childName.equals(node.getName())) {
-                    lst.add(node);
-                }
-            }
-        });
-        if (lst.isEmpty()) {
-            String err = "The component %s could not be found";
-            throw new RuntimeException(String.format(err, childName));
-        }
-        return lst.get(0);
-    }
+	public Spatial find(final String childName) {
+		Spatial child = rootNode.getChild(childName);
+		if (child == null) {
+			String err = String.format("The spatial %s could not be found", childName);
+			throw new RuntimeException(err);
+		}
+		return child;
+	}
 
     /**
      * @param tagName
      * @return 
      */
-    public List<Node> findGameObjectsWithTag(final String tagName) {
-        final List<Node> lst = new ArrayList<>();
-        rootNode.breadthFirstTraversal(new SceneGraphVisitorAdapter() {
+    public List<Spatial> findGameObjectsWithTag(final String tagName) {
+        final List<Spatial> lst = new ArrayList<>();
+        rootNode.breadthFirstTraversal(new SceneGraphVisitor() {
             @Override
-            public void visit(Node node) {
+            public void visit(Spatial node) {
                 if (tagName.equals(node.getUserData("TagName"))) {
                     lst.add(node);
                 }
@@ -131,27 +124,52 @@ public abstract class SimpleAppState extends AbstractAppState {
      * @param tagName
      * @return 
      */
-    public Node findWithTag(final String tagName) {
-        List<Node> lst = findGameObjectsWithTag(tagName);
+    public Spatial findWithTag(final String tagName) {
+        List<Spatial> lst = findGameObjectsWithTag(tagName);
         if (lst.isEmpty()) {
-            String err = "The object %s could not be found";
-            throw new RuntimeException(String.format(err, tagName));
+            String err = String.format("The spatial %s could not be found", tagName);
+            throw new RuntimeException(err);
         }
         return lst.get(0);
     }
     
     /**
+     * By default the parent of the new object is null
      * @param model
      * @param position
      * @param rotation
-     * @return 
+     * @return
      */
     public Spatial instantiate(Spatial model, Vector3f position, Quaternion rotation) {
         Spatial sp = model.clone();
         sp.setLocalTranslation(position);
         sp.setLocalRotation(rotation);
-        rootNode.attachChild(sp);
         return sp;
+    }
+    
+    public Spatial instantiate(Spatial model, Vector3f position, Quaternion rotation, Node parent) {
+    	Spatial sp = instantiate(model, position, rotation);
+        parent.attachChild(sp);
+        return sp;
+    }
+    
+    /**
+     * @param assetName
+     * @param position
+     * @param rotation
+     * @return
+     */
+    public Spatial instantiate(String assetName, Vector3f position, Quaternion rotation) {
+        Spatial sp = assetManager.loadModel(assetName);
+        sp.setLocalTranslation(position);
+        sp.setLocalRotation(rotation);
+        return sp;
+    }
+    
+    public Spatial instantiate(String assetName, Vector3f position, Quaternion rotation, Node parent) {
+    	Spatial sp = instantiate(assetName, position, rotation);
+    	parent.attachChild(sp);
+    	return sp;
     }
     
 }
