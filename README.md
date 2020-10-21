@@ -25,7 +25,8 @@ Resource Used:
     - [jMonkeyEngine](https://jmonkeyengine.org/)
     
 - Assets
-    - [mixamo](https://www.mixamo.com/#/)
+    - [Mixamo](https://www.mixamo.com/)
+    - [Blender](https://www.blender.org/download/)
 
 # Swimmming System
 ![Screenshot](media/swim/image-1.png)
