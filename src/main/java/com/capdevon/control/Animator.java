@@ -10,6 +10,7 @@ import com.jme3.animation.AnimControl;
 import com.jme3.animation.AnimEventListener;
 import com.jme3.animation.Bone;
 import com.jme3.animation.LoopMode;
+import com.jme3.animation.SkeletonControl;
 import com.jme3.scene.Spatial;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,6 +23,7 @@ public class Animator extends AdapterControl {
     
     private static final Logger LOGGER = Logger.getLogger(Animator.class.getName());
     
+    private SkeletonControl skControl;
     private AnimControl animControl;
     private AnimChannel animChannel;
     
@@ -29,6 +31,7 @@ public class Animator extends AdapterControl {
     public void setSpatial(Spatial sp) {
         super.setSpatial(sp);
         if (spatial != null) {
+            this.skControl = getComponentInChild(SkeletonControl.class);
             this.animControl = getComponentInChild(AnimControl.class);
             this.animChannel = animControl.createChannel();
             System.out.println(spatial.getName() + " --Animations: " + animControl.getAnimationNames());
@@ -72,7 +75,11 @@ public class Animator extends AdapterControl {
     }
 
     public Bone getBone(String boneName) {
-        return animControl.getSkeleton().getBone(boneName);
+        return skControl.getSkeleton().getBone(boneName);
+    }
+    
+    public Node getAttachments(String boneName) {
+        return skControl.getAttachmentsNode(boneName);
     }
 
     public Spatial getRootMotion() {
