@@ -68,7 +68,6 @@ public class GInputAppState extends AbstractAppState implements AnalogListener, 
         addMapping(KeyMapping.TOGGLE_FLASHLIGHT, new KeyTrigger(KeyInput.KEY_F));
         addMapping(KeyMapping.TOGGLE_FLYCAMERA, new KeyTrigger(KeyInput.KEY_I));
         
-        addMapping(KeyMapping.TOGGLE_PHYSICS_DEBUG, new KeyTrigger(KeyInput.KEY_0));
         addMapping(KeyMapping.KEY_1, new KeyTrigger(KeyInput.KEY_1));
         addMapping(KeyMapping.KEY_2, new KeyTrigger(KeyInput.KEY_2));
         addMapping(KeyMapping.KEY_3, new KeyTrigger(KeyInput.KEY_3));
@@ -95,7 +94,6 @@ public class GInputAppState extends AbstractAppState implements AnalogListener, 
             assignButton(joypad, JoystickButton.BUTTON_5, KeyMapping.AUTO_AIM);
             assignButton(joypad, JoystickButton.BUTTON_6, KeyMapping.AIMING);
             assignButton(joypad, JoystickButton.BUTTON_7, KeyMapping.FIRE);
-            assignButton(joypad, JoystickButton.BUTTON_8, KeyMapping.TOGGLE_PHYSICS_DEBUG);
             assignButton(joypad, JoystickButton.BUTTON_9, KeyMapping.TOGGLE_FLYCAMERA);
 
             // Make the left stick move
