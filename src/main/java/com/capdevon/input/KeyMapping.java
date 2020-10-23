@@ -29,13 +29,6 @@ public interface KeyMapping {
 
     final String TOGGLE_FLASHLIGHT              = "TOGGLE_FLASHLIGHT";
     final String TOGGLE_FLYCAMERA               = "TOGGLE_FLYCAMERA";
-    final String TOGGLE_PHYSICS_DEBUG           = "TOGGLE_PHYSICS_DEBUG";
-    final String TOGGLE_NIGHT_VISION_FILTER     = "TOGGLE_NIGHT_VISION_FILTER";
-    final String TOGGLE_PREDATOR_VISION_FILTER  = "TOGGLE_PREDATOR_VISION_FILTER";
-    final String TOGGLE_SSAO_FILTER             = "TOGGLE_SSAO_FILTER";
-    final String TOGGLE_BLOOM_FILTER            = "TOGGLE_BLOOM_FILTER";
-    final String TAKE_SCREENSHOT                = "TAKE_SCREENSHOT";
-    final String START_VIDEORECORDER            = "START_VIDEORECORDER";
 
     final String KEY_1 = "KEY_1";
     final String KEY_2 = "KEY_2";
