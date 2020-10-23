@@ -34,5 +34,4 @@ public interface KeyMapping {
     final String KEY_2 = "KEY_2";
     final String KEY_3 = "KEY_3";
     final String KEY_4 = "KEY_4";
-    final String KEY_5 = "KEY_5";
 }
