@@ -26,6 +26,10 @@ public class AsyncOperation {
         this.allowSceneActivation = new AtomicBoolean(true);
     }
     
+    /**
+     * Has the operation finished?
+     * @return 
+     */
     public boolean isDone() {
         return future.isDone();
     }
@@ -46,6 +50,10 @@ public class AsyncOperation {
         allowSceneActivation.set(value);
     }
     
+    /**
+     * Event that is invoked upon operation completion
+     * @param action 
+     */
     public void onCompleted(Consumer action) {
         future.thenAccept(action);
     }
