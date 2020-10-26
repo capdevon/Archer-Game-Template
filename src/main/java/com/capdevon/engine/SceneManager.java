@@ -80,7 +80,7 @@ public class SceneManager extends SimpleAppState {
                 updateProgress(Math.round(progress));
                 i++;
                 
-            } catch (InstantiationException | IllegalAccessException | InterruptedException ex) {
+            } catch (InstantiationException | IllegalAccessException ex) {
                 System.err.println(ex);
                 return false;
             }
@@ -102,7 +102,7 @@ public class SceneManager extends SimpleAppState {
                     updateProgress(Math.round(progress));
                     i++;
                 }
-            } catch (InterruptedException ex) {
+            } catch (Exception ex) {
                 System.err.println(ex);
                 return false;
             }
