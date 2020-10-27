@@ -8,7 +8,6 @@ package com.capdevon.engine;
 import com.jme3.app.Application;
 import com.jme3.app.state.AppState;
 import com.jme3.app.state.BaseAppState;
-import com.rpg.Scene;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 
