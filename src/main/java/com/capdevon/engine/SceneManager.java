@@ -5,28 +5,32 @@
  */
 package com.capdevon.engine;
 
+import com.jme3.app.Application;
 import com.jme3.app.state.AppState;
+import com.jme3.app.state.BaseAppState;
+import com.rpg.Scene;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 /**
  * capdevon
  */
-public class SceneManager extends SimpleAppState {
+public class SceneManager extends BaseAppState {
     
     private Scene currScene;
     private AsyncOperation asyncOperation;
     private ScheduledThreadPoolExecutor executor;
     
     @Override
-    public void simpleInit() {
-        // TODO Auto-generated method stub
+    protected void initialize(Application app) {
         this.executor = new ScheduledThreadPoolExecutor(2);
+        System.out.println("SceneManager initialize");
     }
 
     @Override
-    public void update(float tpf) {
-        //To change body of generated methods, choose Tools | Templates.
+    protected void cleanup(Application app) {
+        executor.shutdown();
+        System.out.println("SceneManager cleanup");
     }
     
     /**
@@ -73,14 +77,19 @@ public class SceneManager extends SimpleAppState {
         for (Class<? extends AppState> clazz : currScene.systemPrefabs) {
             try {
                 AppState appState = clazz.newInstance();
-                stateManager.attach(appState);
+                getStateManager().attach(appState);
+                
                 System.out.println("attaching ... AppState: " + clazz.getCanonicalName());
+                while (!appState.isInitialized()) {
+                    Thread.sleep(500);
+                }
+                System.out.println("AppState Attached: " + clazz.getCanonicalName());
                 
                 float progress = (i / currScene.systemPrefabs.size()) * 100;
                 updateProgress(Math.round(progress));
                 i++;
                 
-            } catch (InstantiationException | IllegalAccessException ex) {
+            } catch (InstantiationException | IllegalAccessException | InterruptedException ex) {
                 System.err.println(ex);
                 return false;
             }
@@ -93,16 +102,21 @@ public class SceneManager extends SimpleAppState {
         float i = 1;
         for (Class<? extends AppState> clazz : currScene.systemPrefabs) {
             try {
-                AppState appState = stateManager.getState(clazz);
+                AppState appState = getState(clazz);
                 if (appState != null) {
-                    stateManager.detach(appState);
+                    getStateManager().detach(appState);
+
                     System.out.println("detaching ... AppState: " + clazz.getCanonicalName());
+                    while (appState.isInitialized()) {
+                        Thread.sleep(500);
+                    }
+                    System.out.println("AppState Detached: " + clazz.getCanonicalName());
 
                     float progress = (i / currScene.systemPrefabs.size()) * 100;
                     updateProgress(Math.round(progress));
                     i++;
                 }
-            } catch (Exception ex) {
+            } catch (InterruptedException ex) {
                 System.err.println(ex);
                 return false;
             }
@@ -123,11 +137,15 @@ public class SceneManager extends SimpleAppState {
             }
         }
     }
-    
+
     @Override
-    public void cleanup() {
-        executor.shutdown();
-        System.out.println("executor.shutdown");
+    protected void onEnable() {
+        //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    protected void onDisable() {
+        //To change body of generated methods, choose Tools | Templates.
     }
     
 }
