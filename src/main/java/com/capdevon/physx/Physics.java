@@ -90,82 +90,84 @@ public class Physics {
     }
     
     /**
+     * Casts a ray, from point origin, in direction direction, 
+     * of length maxDistance, against all colliders in the Scene.
      * 
-     * @param origin
-     * @param direction
-     * @param hitInfo
-     * @param distance
-     * @return 
+     * @param origin 		- The starting point of the ray in world coordinates.
+     * @param direction 	- The direction of the ray.
+     * @param hitInfo 		- If true is returned, hitInfo will contain more information about where the closest collider was hit. (See Also: RaycastHit).
+     * @param maxDistance 	- The max distance the ray should check for collisions.
+     * @return Returns true if the ray intersects with a Collider, otherwise false.
      */
-    public static boolean doRaycast(Vector3f origin, Vector3f direction, RaycastHit hitInfo, float distance) {
+	public static boolean doRaycast(Vector3f origin, Vector3f direction, RaycastHit hitInfo, float maxDistance) {
 
-    	boolean collision = false;
-        float hf = distance;
+		boolean collision = false;
+		float hf = maxDistance;
 
-        TempVars t = TempVars.get();
-        Vector3f beginVec = t.vect1.set(origin);
-        Vector3f finalVec = t.vect2.set(direction).multLocal(distance).addLocal(origin);
+		TempVars t = TempVars.get();
+		Vector3f beginVec = t.vect1.set(origin);
+		Vector3f finalVec = t.vect2.set(direction).multLocal(maxDistance).addLocal(origin);
 
-        List<PhysicsRayTestResult> results = PhysicsSpace.getPhysicsSpace().rayTest(beginVec, finalVec);
-        for (PhysicsRayTestResult ray : results) {
-        	
-        	PhysicsCollisionObject pco = ray.getCollisionObject();
-            if (pco instanceof GhostControl) {
-                continue;
-            }
-            
-            if (ray.getHitFraction() < hf) {
-            	
-            	collision = true;
-                hf = ray.getHitFraction();
-                
-                hitInfo.rigidbody 	= pco;
-                hitInfo.collider 	= pco.getCollisionShape();
-                hitInfo.userObject 	= (Spatial) pco.getUserObject();
-                hitInfo.distance 	= finalVec.subtract(beginVec).length() * hf;
-                hitInfo.point.interpolateLocal(beginVec, finalVec, hf);
-                hitInfo.normal.set(ray.getHitNormalLocal());
-            }
-        }
+		List<PhysicsRayTestResult> results = PhysicsSpace.getPhysicsSpace().rayTest(beginVec, finalVec);
+		for (PhysicsRayTestResult ray : results) {
 
-        t.release();
-        return collision;
-    }
+			PhysicsCollisionObject pco = ray.getCollisionObject();
+			if (pco instanceof GhostControl) {
+				continue;
+			}
+
+			if (ray.getHitFraction() < hf) {
+
+				collision = true;
+				hf = ray.getHitFraction();
+
+				hitInfo.rigidbody 	= pco;
+				hitInfo.collider 	= pco.getCollisionShape();
+				hitInfo.userObject 	= (Spatial) pco.getUserObject();
+				hitInfo.distance 	= finalVec.subtract(beginVec).length() * hf;
+				hitInfo.point.interpolateLocal(beginVec, finalVec, hf);
+				hitInfo.normal.set(ray.getHitNormalLocal());
+			}
+		}
+
+		t.release();
+		return collision;
+	}
     
     /**
      * 
      * @param beginVec
      * @param finalVec
      * @param hitInfo
-     * @return 
+     * @return Returns true if the ray intersects with a Collider, otherwise false.
      */
-    public static boolean doRaycast(Vector3f beginVec, Vector3f finalVec, RaycastHit hitInfo) {
+	public static boolean doRaycast(Vector3f beginVec, Vector3f finalVec, RaycastHit hitInfo) {
 
-    	boolean collision = false;
-        float hf = Float.MAX_VALUE;
+		boolean collision = false;
+		float hf = Float.MAX_VALUE;
 
-        List<PhysicsRayTestResult> results = PhysicsSpace.getPhysicsSpace().rayTest(beginVec, finalVec);
-        for (PhysicsRayTestResult ray : results) {
-            
-            PhysicsCollisionObject pco = ray.getCollisionObject();
-            if (pco instanceof GhostControl) {
-                continue;
-            }
-            
-            if (ray.getHitFraction() < hf) {
-            	
-            	collision = true;
-                hf = ray.getHitFraction();
-                
-                hitInfo.rigidbody 	= pco;
-                hitInfo.collider 	= pco.getCollisionShape();
-                hitInfo.userObject 	= (Spatial) pco.getUserObject();
-                hitInfo.distance 	= finalVec.subtract(beginVec).length() * hf;
-                hitInfo.point.interpolateLocal(beginVec, finalVec, hf);
-                hitInfo.normal.set(ray.getHitNormalLocal());
-            }
-        }
+		List<PhysicsRayTestResult> results = PhysicsSpace.getPhysicsSpace().rayTest(beginVec, finalVec);
+		for (PhysicsRayTestResult ray : results) {
 
-        return collision;
-    }
+			PhysicsCollisionObject pco = ray.getCollisionObject();
+			if (pco instanceof GhostControl) {
+				continue;
+			}
+
+			if (ray.getHitFraction() < hf) {
+
+				collision = true;
+				hf = ray.getHitFraction();
+
+				hitInfo.rigidbody 	= pco;
+				hitInfo.collider 	= pco.getCollisionShape();
+				hitInfo.userObject 	= (Spatial) pco.getUserObject();
+				hitInfo.distance 	= finalVec.subtract(beginVec).length() * hf;
+				hitInfo.point.interpolateLocal(beginVec, finalVec, hf);
+				hitInfo.normal.set(ray.getHitNormalLocal());
+			}
+		}
+
+		return collision;
+	}
 }
