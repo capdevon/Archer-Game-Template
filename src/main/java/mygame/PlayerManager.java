@@ -85,7 +85,7 @@ public class PlayerManager extends SimpleAppState {
     }
 
     private Weapon initWeapons() {
-        Node rh = AnimUtils.getAttachments(player, AnimDefs.RIGHT_HAND);
+        Node rh = AnimUtils.getAttachments(player, "Armature_mixamorig:" + HumanBodyBones.RightHand);
 
         Node model = new Node("weapon-node");
         Geometry geo = getRuntimeWeapon("weapon-geomesh", ColorRGBA.Green);
