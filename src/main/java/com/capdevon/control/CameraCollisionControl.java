@@ -68,7 +68,7 @@ public class CameraCollisionControl extends AbstractControl {
         targetToCamDirection.set( camera.getLocation() ).subtractLocal(targetLocation).normalizeLocal();
 
         if (doRaycast(targetLocation, targetToCamDirection, distMax, hitInfo)) {
-            if (chaseCam.getDistanceToTarget() + hitInfo.getNormal().length() > hitInfo.getDistance()) {
+            if (chaseCam.getDistanceToTarget() + hitInfo.normal.length() > hitInfo.distance) {
                 chaseCam.onAnalog(CameraInput.CHASECAM_ZOOMIN, tpf * zSensitivity, tpf);
             }
         } else if (chaseCam.getDistanceToTarget() < distMax) {
@@ -87,16 +87,16 @@ public class CameraCollisionControl extends AbstractControl {
         scene.collideWith(ray, results);
         
         boolean hit = false;
-        if (results.size() > 0) {
-            CollisionResult closest = results.getClosestCollision();
-            out.collider = closest.getGeometry();
-            out.normal   = closest.getContactNormal();
-            out.point    = closest.getContactPoint();
-            out.distance = closest.getDistance();
-            
-            if (out.distance < maxDistance)
-                hit = true;
-        }
+		if (results.size() > 0) {
+			CollisionResult closest = results.getClosestCollision();
+			out.userObject 	= closest.getGeometry();
+			out.normal 		= closest.getContactNormal();
+			out.point 		= closest.getContactPoint();
+			out.distance 	= closest.getDistance();
+
+			if (out.distance < maxDistance)
+				hit = true;
+		}
         
         return hit;
     }
