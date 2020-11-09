@@ -7,6 +7,7 @@ package mygame;
 
 import com.capdevon.engine.SoundManager;
 import com.capdevon.input.GInputAppState;
+import com.capdevon.physx.PhysxDebugAppState;
 import com.capdevon.util.BaseGameApplication;
 import com.capdevon.util.PhysicsTestHelper;
 import com.jme3.app.FlyCamAppState;
@@ -57,6 +58,7 @@ public class Main extends BaseGameApplication {
         setupLights();
         setupFilters();
         
+        stateManager.attach(new PhysxDebugAppState());
         stateManager.attach(new GInputAppState());
         stateManager.attach(new ParticleManager());
         stateManager.attach(new PlayerManager());
