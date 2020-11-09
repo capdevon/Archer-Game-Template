@@ -11,7 +11,6 @@ import com.jme3.animation.LoopMode;
 public interface AnimDefs {
     
     final String MODEL              = "Models/Archer/archer.j3o";
-    final String RIGHT_HAND         = "Armature_mixamorig:RightHandMiddle1";
     
     final Animation3 Idle           = new Animation3("Idle", LoopMode.Loop, .2f);
     final Animation3 Running        = new Animation3("Running", LoopMode.Loop);
