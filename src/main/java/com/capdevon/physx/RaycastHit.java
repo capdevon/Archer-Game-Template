@@ -1,38 +1,43 @@
 package com.capdevon.physx;
 
+import com.jme3.bullet.collision.PhysicsCollisionObject;
+import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Spatial;
 
 public class RaycastHit {
 
-    public Spatial collider;
+	public PhysicsCollisionObject rigidbody;
+	public CollisionShape collider;
+    public Spatial userObject;
     public float distance;
     public Vector3f normal = new Vector3f();
     public Vector3f point = new Vector3f();
 
-    public Spatial getCollider() {
-        return collider;
+    public void clear() {
+        rigidbody = null;
+        collider = null;
+        userObject = null;
+        distance = Float.NaN;
+        point.set(Vector3f.NAN);
+        normal.set(Vector3f.NAN);
     }
-
-    public Vector3f getNormal() {
-        return normal;
-    }
-
-    public Vector3f getPoint() {
-        return point;
-    }
-
-    public float getDistance() {
-        return distance;
-    }
-
-    @Override
-    public String toString() {
-        return "RaycastHit [collider=" + collider
-                + ", normal=" + normal
-                + ", point=" + point
-                + ", distance=" + distance
-                + "]";
-    }
+    
+	@Override
+	public String toString() {
+		return "RaycastHit [rigidbody=" + toHexString(rigidbody) 
+				+ ", collider=" + toHexString(collider)
+				+ ", userObject=" + toHexString(userObject)
+				+ ", distance=" + distance 
+				+ ", normal=" + normal 
+				+ ", point=" + point 
+				+ "]";
+	}
+	
+	private String toHexString(Object obj) {
+		if (obj != null)
+			return obj.getClass().getSimpleName() + '@' + Integer.toHexString(obj.hashCode());
+		return null;
+	}
 
 }
