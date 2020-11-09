@@ -1,5 +1,7 @@
 package com.capdevon.physx;
 
+import java.util.List;
+
 import com.jme3.bounding.BoundingBox;
 import com.jme3.bounding.BoundingSphere;
 import com.jme3.bullet.PhysicsSpace;
@@ -15,11 +17,9 @@ import com.jme3.bullet.control.GhostControl;
 import com.jme3.bullet.control.PhysicsControl;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.bullet.util.CollisionShapeFactory;
-import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Spatial;
 import com.jme3.util.TempVars;
-import java.util.List;
 
 public class Physics {
     
@@ -99,7 +99,7 @@ public class Physics {
      */
     public static boolean doRaycast(Vector3f origin, Vector3f direction, RaycastHit hitInfo, float distance) {
 
-        Spatial spTarget = null;
+    	boolean collision = false;
         float hf = distance;
 
         TempVars t = TempVars.get();
@@ -108,20 +108,28 @@ public class Physics {
 
         List<PhysicsRayTestResult> results = PhysicsSpace.getPhysicsSpace().rayTest(beginVec, finalVec);
         for (PhysicsRayTestResult ray : results) {
-            Spatial spObject = (Spatial) ray.getCollisionObject().getUserObject();
+        	
+        	PhysicsCollisionObject pco = ray.getCollisionObject();
+            if (pco instanceof GhostControl) {
+                continue;
+            }
+            
             if (ray.getHitFraction() < hf) {
+            	
+            	collision = true;
                 hf = ray.getHitFraction();
-                spTarget = spObject;
+                
+                hitInfo.rigidbody 	= pco;
+                hitInfo.collider 	= pco.getCollisionShape();
+                hitInfo.userObject 	= (Spatial) pco.getUserObject();
+                hitInfo.distance 	= finalVec.subtract(beginVec).length() * hf;
+                hitInfo.point.interpolateLocal(beginVec, finalVec, hf);
+                hitInfo.normal.set(ray.getHitNormalLocal());
             }
         }
 
-        if (spTarget != null) {
-            hitInfo.collider = spTarget;
-            FastMath.interpolateLinear(hf, beginVec, finalVec, hitInfo.point);
-        }
-
         t.release();
-        return (spTarget != null);
+        return collision;
     }
     
     /**
@@ -133,7 +141,7 @@ public class Physics {
      */
     public static boolean doRaycast(Vector3f beginVec, Vector3f finalVec, RaycastHit hitInfo) {
 
-        Spatial spTarget = null;
+    	boolean collision = false;
         float hf = Float.MAX_VALUE;
 
         List<PhysicsRayTestResult> results = PhysicsSpace.getPhysicsSpace().rayTest(beginVec, finalVec);
@@ -144,19 +152,20 @@ public class Physics {
                 continue;
             }
             
-            Spatial spObject = (Spatial) pco.getUserObject();
             if (ray.getHitFraction() < hf) {
+            	
+            	collision = true;
                 hf = ray.getHitFraction();
-                spTarget = spObject;
+                
+                hitInfo.rigidbody 	= pco;
+                hitInfo.collider 	= pco.getCollisionShape();
+                hitInfo.userObject 	= (Spatial) pco.getUserObject();
+                hitInfo.distance 	= finalVec.subtract(beginVec).length() * hf;
+                hitInfo.point.interpolateLocal(beginVec, finalVec, hf);
+                hitInfo.normal.set(ray.getHitNormalLocal());
             }
         }
 
-        if (spTarget != null) {
-            hitInfo.collider = spTarget;
-            hitInfo.point = FastMath.interpolateLinear(hf, beginVec, finalVec);
-            hitInfo.distance = finalVec.subtract(beginVec).length() * hf;
-        }
-
-        return (spTarget != null);
+        return collision;
     }
 }
