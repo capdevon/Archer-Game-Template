@@ -43,7 +43,7 @@ public class PlayerManager extends SimpleAppState {
 
     private void setupPlayer() {
         // Create a node for the character model
-        player = (Node) assetManager.loadModel(IAnimation.MODEL);
+        player = (Node) assetManager.loadModel(AnimDefs.MODEL);
 
         player.addControl(new Animator());
         player.addControl(new BetterCharacterControl(.5f, 1.8f, 80f));
@@ -80,12 +80,12 @@ public class PlayerManager extends SimpleAppState {
         chaseCam.setZoomSensitivity(3f);
         chaseCam.setDownRotateOnCloseViewOnly(false);
 
-        Spatial scene = rootNode.getChild("MainScene");
+        Spatial scene = find("MainScene");
         CameraCollisionControl cameraCollision = new CameraCollisionControl(camera, player, scene);
     }
 
     private Weapon initWeapons() {
-        Node rh = AnimUtils.getAttachments(player, IAnimation.RIGHT_HAND);
+        Node rh = AnimUtils.getAttachments(player, AnimDefs.RIGHT_HAND);
 
         Node model = new Node("weapon-node");
         Geometry geo = getRuntimeWeapon("weapon-geomesh", ColorRGBA.Green);
