@@ -60,32 +60,31 @@ public class Physics {
         addCapsuleCollider(spatial, radius, height, mass);
     }
 
-    public static void addBoxCollider(Spatial sp, float mass, boolean isKinematic) {
+    public static void addBoxCollider(Spatial sp, float mass) {
         BoundingBox bb = (BoundingBox) sp.getWorldBound();
         BoxCollisionShape box = new BoxCollisionShape(bb.getExtent(null));
-        addRigidBody(box, sp, mass, isKinematic);
+        addRigidBody(box, sp, mass);
     }
 
-    public static void addSphereCollider(Spatial sp, float mass, boolean isKinematic) {
+    public static void addSphereCollider(Spatial sp, float mass) {
         BoundingSphere bs = (BoundingSphere) sp.getWorldBound();
         SphereCollisionShape sphere = new SphereCollisionShape(bs.getRadius());
-        addRigidBody(sphere, sp, mass, isKinematic);
+        addRigidBody(sphere, sp, mass);
     }
 
-    public static void addMeshCollider(Spatial sp, float mass, boolean isKinematic) {
+    public static void addMeshCollider(Spatial sp, float mass) {
         CollisionShape shape = CollisionShapeFactory.createMeshShape(sp);
-        addRigidBody(shape, sp, mass, isKinematic);
+        addRigidBody(shape, sp, mass);
     }
 
-    public static void addDynamicMeshCollider(Spatial sp, float mass, boolean isKinematic) {
+    public static void addDynamicMeshCollider(Spatial sp, float mass) {
         CollisionShape shape = CollisionShapeFactory.createDynamicMeshShape(sp);
-        addRigidBody(shape, sp, mass, isKinematic);
+        addRigidBody(shape, sp, mass);
     }
 
-    public static void addRigidBody(CollisionShape shape, Spatial sp, float mass, boolean isKinematic) {
+    public static void addRigidBody(CollisionShape shape, Spatial sp, float mass) {
         RigidBodyControl rgb = new RigidBodyControl(shape, mass);
         sp.addControl(rgb);
-        rgb.setKinematic(isKinematic);
         PhysicsSpace.getPhysicsSpace().add(rgb);
     }
     
