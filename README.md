@@ -16,6 +16,18 @@ The demo contains:
 * Postprocessing
 * ... many many useful functions! Stay tuned for the next addon.
 
+# Keyboard Commands:
+(see file [GInputAppState](https://github.com/capdevon/Archer-Game-Template/blob/main/src/main/java/com/capdevon/input/GInputAppState.java) for all configurations, joystick included)
+- MOVE_FORWARD		(W)
+- MOVE_BACKWARD	(S)
+- MOVE_LEFT			(A)
+- MOVE_RIGHT		(D)
+- AIMING			   (E)
+- SWITCH_WEAPON	(R)
+- FIRE				(MBL - Mouse Button Left)
+- RUNNING			(Hold down the space key while moving)
+- CAMERA			   (Use the mouse to orient the camera)
+
 # New add-on: Swimming System
 * add Trigger System based on Unity Collider
 
