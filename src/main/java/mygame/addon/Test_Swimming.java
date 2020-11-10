@@ -221,7 +221,8 @@ public class Test_Swimming extends BaseGameApplication {
 			float xSpeed = isSwimming ? m_SwimSpeed : m_MoveSpeed;
 			bcc.setWalkDirection(walkDirection.multLocal(xSpeed));
 
-			velocity.set(bcc.getVelocity().x, bcc.getVelocity().z);
+                        Vector3f v = bcc.getVelocity(null);
+			velocity.set(v.x, v.z);
 			boolean isMoving = (velocity.length() / xSpeed) > .2f;
 
 			if (isMoving) {

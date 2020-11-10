@@ -126,7 +126,7 @@ public class Physics {
 				hitInfo.userObject 	= (Spatial) pco.getUserObject();
 				hitInfo.distance 	= finalVec.subtract(beginVec).length() * hf;
 				hitInfo.point.interpolateLocal(beginVec, finalVec, hf);
-				hitInfo.normal.set(ray.getHitNormalLocal());
+				hitInfo.normal.set(ray.getHitNormalLocal(null));
 			}
 		}
 
@@ -164,7 +164,7 @@ public class Physics {
 				hitInfo.userObject 	= (Spatial) pco.getUserObject();
 				hitInfo.distance 	= finalVec.subtract(beginVec).length() * hf;
 				hitInfo.point.interpolateLocal(beginVec, finalVec, hf);
-				hitInfo.normal.set(ray.getHitNormalLocal());
+				hitInfo.normal.set(ray.getHitNormalLocal(null));
 			}
 		}
 
