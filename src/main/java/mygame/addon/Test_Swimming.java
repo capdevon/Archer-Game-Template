@@ -90,8 +90,8 @@ public class Test_Swimming extends BaseGameApplication {
 		AudioNode audio_nature = getAudioEnv("Sound/Environment/Nature.ogg", true, false, 4);
 
 		GInputAppState ginput = new GInputAppState();
-		ginput.addActionListener(player.getControl(PlayerControl.class));
 		stateManager.attach(ginput);
+		ginput.addActionListener(player.getControl(PlayerControl.class));
 		
 		stateManager.attach(new PhysxDebugAppState());
 	}
@@ -106,7 +106,7 @@ public class Test_Swimming extends BaseGameApplication {
 		for (Spatial sp : scene.getChildren()) {
 
 			System.out.println("--ChildName: " + sp);
-			Physics.addMeshCollider(sp, 0f, false);
+			Physics.addMeshCollider(sp, 0f);
 
 			if (sp.getName().equals("Pool")) {
 
