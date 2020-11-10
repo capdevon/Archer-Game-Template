@@ -20,17 +20,13 @@ import java.util.List;
 public abstract class AbstractInputAppState extends AbstractAppState implements AnalogListener, ActionListener {
 
     private InputManager inputManager;
-    private List<ActionListener> actionListeners;
-    private List<AnalogListener> analogListeners;
-    private List<String> mappingNames;
+    private List<ActionListener> actionListeners = new SafeArrayList<>(ActionListener.class);
+    private List<AnalogListener> analogListeners = new SafeArrayList<>(AnalogListener.class);
+    private List<String> mappingNames = new ArrayList<>();
 
     @Override
     public void initialize(AppStateManager asm, Application app) {
         super.initialize(asm, app);
-        
-        actionListeners = new SafeArrayList<>(ActionListener.class);
-        analogListeners = new SafeArrayList<>(AnalogListener.class);
-        mappingNames = new ArrayList<>();
         
         inputManager = app.getInputManager();
         registerInput();
