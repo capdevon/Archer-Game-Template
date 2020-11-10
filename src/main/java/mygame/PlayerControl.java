@@ -124,7 +124,8 @@ public class PlayerControl extends AdapterControl implements AnimEventListener {
             float xSpeed = isRunning ? m_RunSpeed : m_MoveSpeed;
             bcc.setWalkDirection(walkDirection.multLocal(xSpeed));
 
-            velocity.set(bcc.getVelocity().x, bcc.getVelocity().z);
+            Vector3f v = bcc.getVelocity(null);
+            velocity.set(v.x, v.z);
             boolean isMoving = (velocity.length() / xSpeed) > .2f;
 
             if (isMoving) {
@@ -219,7 +220,7 @@ public class PlayerControl extends AdapterControl implements AnimEventListener {
         RigidBodyControl rgb = hit.userObject.getControl(RigidBodyControl.class);
         if (rgb != null && rgb.getMass() > 0) {
 
-            Vector3f force = rgb.getGravity().negateLocal().multLocal(rgb.getMass());
+            Vector3f force = rgb.getGravity(null).negateLocal().multLocal(rgb.getMass());
             rgb.applyImpulse(force, Vector3f.ZERO);
 
             ColorRGBA color = ColorRGBA.randomColor();

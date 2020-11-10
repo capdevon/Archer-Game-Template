@@ -15,15 +15,8 @@ sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
 
 // select one version of the Engine
-//ext.jmonkeyengineVersion = '3.1.0-stable' // from jCenter
-//ext.jmonkeyengineVersion = '3.2.0-stable' // from jCenter
-//ext.jmonkeyengineVersion = '3.2.1-stable' // from jCenter
-//ext.jmonkeyengineVersion = '3.2.2-stable' // from jCenter
-//ext.jmonkeyengineVersion = '3.2.3-stable' // from jCenter
-ext.jmonkeyengineVersion = '3.2.4-stable' // from jCenter
-//ext.jmonkeyengineVersion = '3.3.0-alpha5' // from jCenter
-//ext.jmonkeyengineVersion = '3.3.0-beta1' // from jCenter
-//ext.jmonkeyengineVersion = '3.3.0-beta2' // from jCenter
+//ext.jmonkeyengineVersion = '3.2.4-stable' // from jCenter
+ext.jmonkeyengineVersion = '3.3.2-stable' // from jCenter
 //ext.jmonkeyengineVersion = '3.4.0-SNAPSHOT' // from mavenLocal
 
 gradle.projectsEvaluated {
@@ -78,14 +71,15 @@ dependencies {
 
     // from jcenter (or mavenLocal) repositories:
     implementation 'org.jmonkeyengine:jme3-core:' + jmonkeyengineVersion
-    implementation 'org.jmonkeyengine:jme3-bullet:' + jmonkeyengineVersion
-    runtimeOnly 'org.jmonkeyengine:jme3-bullet-native:' + jmonkeyengineVersion
     implementation 'org.jmonkeyengine:jme3-desktop:' + jmonkeyengineVersion
     implementation 'org.jmonkeyengine:jme3-effects:' + jmonkeyengineVersion
     implementation 'org.jmonkeyengine:jme3-jogl:' + jmonkeyengineVersion
     //implementation 'org.jmonkeyengine:jme3-networking:' + jmonkeyengineVersion
     //implementation 'org.jmonkeyengine:jme3-niftygui:' + jmonkeyengineVersion
     implementation 'org.jmonkeyengine:jme3-terrain:' + jmonkeyengineVersion
+
+    implementation 'com.github.stephengold:Minie:3.0.0'
+    //implementation 'com.github.stephengold:Minie:3.0.0+debug'
 
     // select one version of LWJGL (from jCenter or mavenLocal)
     //runtimeOnly 'org.jmonkeyengine:jme3-lwjgl:' + jmonkeyengineVersion  // LWJGL 2.x
