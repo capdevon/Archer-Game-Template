@@ -1,5 +1,5 @@
 # Archer-Game-Template
-A Third Person Shooter demo made with jMonkeyEngine v3.3.2-stable. Build with gradle.
+A Third Person Shooter demo made with jMonkeyEngine v3.3.2-stable.
 
 The demo contains:
 
