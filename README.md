@@ -28,10 +28,7 @@ The demo contains:
 - RUNNING			(Hold down the space key while moving)
 - CAMERA			   (Use the mouse to orient the camera)
 
-# New add-on: Swimming System
-* add Trigger System based on Unity Collider
-
-Resource Used:
+# Resource Used:
 
 - Code
     - [jMonkeyEngine](https://jmonkeyengine.org/)
@@ -41,7 +38,8 @@ Resource Used:
     - [Mixamo](https://www.mixamo.com/)
     - [Blender](https://www.blender.org/download/)
 
-# Swimmming System
+# New add-on: Swimming System
+* add Trigger System based on Unity Collider
 ![Screenshot](media/swim/image-1.png)
 ------
 ![Screenshot](media/swim/image-2.png)
