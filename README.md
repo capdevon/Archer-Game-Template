@@ -1,9 +1,9 @@
 # Archer-Game-Template
-A Third Person Shooter demo made with jMonkeyEngine. Build with gradle.
+A Third Person Shooter demo made with jMonkeyEngine v3.3.2-stable. Build with gradle.
 
 The demo contains:
 
-* Physics (with bullet engine)
+* Physics with Minie (https://stephengold.github.io/Minie/minie/overview.html)
 * Physics raycast to detect hit collision
 * Animations (with gltf2 animations, file .blend included): 
     * "Idle", "Running", "Running_2", "Aim_Idle", "Aim_Overdraw", "Aim_Recoil", "Draw_Arrow", "Water_Idle", "Water_Moving", "Swimming"
@@ -35,6 +35,7 @@ Resource Used:
 
 - Code
     - [jMonkeyEngine](https://jmonkeyengine.org/)
+    - [Minie](https://stephengold.github.io/Minie/minie/overview.html)
     
 - Assets
     - [Mixamo](https://www.mixamo.com/)
