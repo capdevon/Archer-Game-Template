@@ -56,7 +56,8 @@ public class PhysicsTestHelper {
         Box box = new Box(.5f, .5f, .5f);
         Geometry g = new Geometry("GeoMesh", box);
         Material mat = new Material(am, "Common/MatDefs/Misc/Unshaded.j3md");
-        mat.setTexture("ColorMap", am.loadTexture("Common/Textures/MissingTexture.png"));
+        // mat.setTexture("ColorMap", am.loadTexture("Common/Textures/MissingTexture.png"));
+        mat.setTexture("ColorMap", am.loadTexture("Textures/white_grid.jpg"));
         mat.setColor("Color", ColorRGBA.randomColor());
         g.setMaterial(mat);
         return g;
