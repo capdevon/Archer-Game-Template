@@ -39,7 +39,8 @@ The demo contains:
     - [Blender](https://www.blender.org/download/)
 
 # New add-on: Swimming System
-* add Trigger System based on Unity Collider
+add Trigger System based on Unity Collider
+
 ![Screenshot](media/swim/image-1.png)
 ------
 ![Screenshot](media/swim/image-2.png)
