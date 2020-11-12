@@ -3,7 +3,7 @@ A Third Person Shooter demo made with jMonkeyEngine v3.3.2-stable.
 
 The demo contains:
 
-* Physics with Minie (https://stephengold.github.io/Minie/minie/overview.html)
+* Physics with [Minie](https://stephengold.github.io/Minie/minie/overview.html)
 * Physics raycast to detect hit collision
 * Animations (with gltf2 animations, file .blend included): 
     * "Idle", "Running", "Running_2", "Aim_Idle", "Aim_Overdraw", "Aim_Recoil", "Draw_Arrow", "Water_Idle", "Water_Moving", "Swimming"
