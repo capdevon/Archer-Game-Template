@@ -18,15 +18,12 @@ The demo contains:
 
 # Keyboard Commands:
 (see file [GInputAppState](https://github.com/capdevon/Archer-Game-Template/blob/main/src/main/java/com/capdevon/input/GInputAppState.java) for all configurations, joystick included)
-- MOVE_FORWARD		(W)
-- MOVE_BACKWARD	(S)
-- MOVE_LEFT			(A)
-- MOVE_RIGHT		(D)
-- AIMING			   (E)
-- SWITCH_WEAPON	(R)
-- FIRE				(MBL - Mouse Button Left)
-- RUNNING			(Hold down the space key while moving)
-- CAMERA			   (Use the mouse to orient the camera)
+- WASD: Basic movements
+- E: Aiming
+- R: Switch arrow type
+- LMB: Left Mouse Button to fire
+- SPACE: Hold down the key while moving to sprinting
+- CAMERA: Use the mouse to orient the camera
 
 # Resource Used:
 
