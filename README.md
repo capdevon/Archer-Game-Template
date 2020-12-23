@@ -10,9 +10,10 @@ The demo contains:
 * Third Person Camera with collision detection
 * Bow with two types of ammo and effect
 * Dynamic update of camera FOV when aiming
-* Keyboard/Mouse and Joystick support
+* Keyboard/Mouse support
+* Joystick support (with jme3-lwjgl based on LWJGL 2.x)
 * Sounds
-* Particles
+* Particles Effects
 * Postprocessing
 * ... many many useful functions! Stay tuned for the next addon.
 
