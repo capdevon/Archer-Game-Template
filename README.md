@@ -23,7 +23,7 @@ The demo contains:
 - E: Aiming
 - R: Switch arrow type
 - LMB: Left Mouse Button to fire
-- SPACE: Hold down the key while moving to sprinting
+- LSHIFT: Hold down the key while moving to sprinting
 - CAMERA: Use the mouse to orient the camera
 
 # Resource Used:
