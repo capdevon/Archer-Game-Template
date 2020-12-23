@@ -27,7 +27,7 @@ public class GInputAppState extends AbstractInputAppState {
 		addMapping(KeyMapping.MOVE_RIGHT, 	new KeyTrigger(KeyInput.KEY_D));
 		addMapping(KeyMapping.AIMING, 		new KeyTrigger(KeyInput.KEY_E));
 		addMapping(KeyMapping.SWITCH_WEAPON, 	new KeyTrigger(KeyInput.KEY_R));
-		addMapping(KeyMapping.RUNNING, 		new KeyTrigger(KeyInput.KEY_SPACE));
+		addMapping(KeyMapping.RUNNING, 		new KeyTrigger(KeyInput.KEY_LSHIFT));
 		addMapping(KeyMapping.FIRE, 		new MouseButtonTrigger(MouseInput.BUTTON_LEFT));
 	}
     
