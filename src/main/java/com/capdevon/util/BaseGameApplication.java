@@ -45,8 +45,9 @@ public abstract class BaseGameApplication extends SimpleApplication {
     }
     
     public void setupSkyBox() {
-        rootNode.attachChild(SkyFactory.createSky(assetManager, 
-                "Scenes/Beach/FullskiesSunset0068.dds", SkyFactory.EnvMapType.CubeMap));
+        Spatial sky = SkyFactory.createSky(assetManager, "Scenes/Beach/FullskiesSunset0068.dds", SkyFactory.EnvMapType.CubeMap);
+        sky.setShadowMode(RenderQueue.ShadowMode.Off);
+        rootNode.attachChild(sky);
     }
     
     /** An ambient light and a directional sun light */
@@ -68,10 +69,16 @@ public abstract class BaseGameApplication extends SimpleApplication {
         BloomFilter bloom = new BloomFilter();
         bloom.setExposurePower(55);
         bloom.setBloomIntensity(1.0f);
+        
+        SSAOFilter ssao = new SSAOFilter(5f, 10f, 0.8f, 0.70f);
+
+        FXAAFilter fxaa = new FXAAFilter();
 
         fpp = new FilterPostProcessor(assetManager);
+        fpp.addFilter(ssao);
         fpp.addFilter(bloom);
         fpp.addFilter(lsf);
+        fpp.addFilter(fxaa);
         viewPort.addProcessor(fpp);
     }
     
